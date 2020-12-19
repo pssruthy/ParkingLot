@@ -6,7 +6,7 @@ public class ParkingLotTest {
     @Test
     public void shouldParkACar() {
         ParkingLot parkingLot = new ParkingLot(2);
-        assertEquals(1, parkingLot.park());
+        assertEquals(ParkingLotStatus.AVAILABLE, parkingLot.park());
     }
 
     @Test

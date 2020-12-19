@@ -3,19 +3,19 @@ import java.util.Arrays;
 public class ParkingLot {
     private final SlotStatus[] slots;
 
-    public ParkingLot(int slots) {
-        this.slots = new SlotStatus[slots];
+    public ParkingLot(int noOfSlots) {
+        this.slots = new SlotStatus[noOfSlots];
         Arrays.fill(this.slots, SlotStatus.EMPTY);
     }
 
-    public int park() {
+    public ParkingLotStatus park() {
         for (int slotNo = 0; slotNo < this.slots.length; slotNo++) {
             if (isSlotEmpty(this.slots[slotNo])) {
                 this.slots[slotNo] = SlotStatus.FILLED;
-                return slotNo + 1;
+                return ParkingLotStatus.AVAILABLE;
             }
         }
-        return -1;
+        return ParkingLotStatus.FULL;
     }
 
     public boolean isFull() {
