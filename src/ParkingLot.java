@@ -9,6 +9,20 @@ public class ParkingLot {
     }
 
     public int park() {
-        return 1;
+        for (int slotNo = 0; slotNo < this.slots.length; slotNo++) {
+            if (isSlotEmpty(this.slots[slotNo])) {
+                this.slots[slotNo] = SlotStatus.FILLED;
+                return slotNo + 1;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isFull() {
+        return Arrays.stream(this.slots).noneMatch(this::isSlotEmpty);
+    }
+
+    private boolean isSlotEmpty(SlotStatus slot) {
+        return slot == SlotStatus.EMPTY;
     }
 }

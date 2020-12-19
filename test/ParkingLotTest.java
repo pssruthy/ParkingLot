@@ -8,4 +8,20 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(2);
         assertEquals(1, parkingLot.park());
     }
+
+    @Test
+    public void shouldConfirmWhenParkingLotIsFull() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        parkingLot.park();
+
+        assertTrue(parkingLot.isFull());
+    }
+
+    @Test
+    public void shouldConfirmWhenParkingLotIsNotFull() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        assertFalse(parkingLot.isFull());
+    }
 }
