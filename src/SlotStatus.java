@@ -1,3 +1,3 @@
 public enum SlotStatus {
-    EMPTY, FILLED
+    EMPTY, FILLED;
 }
