@@ -1,23 +1,24 @@
+package com.step.parking;
+
+import com.step.record.ParkingLotRecord;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ParkingLot {
-    private final ArrayList<SlotStatus> availableSlots = new ArrayList<>();
-    private final ArrayList<SlotStatus> occupiedSlots;
+    private final ArrayList<Slot> availableSlots = new ArrayList<>();
     
     public ParkingLot(int noOfSlots) {
-        final SlotStatus[] newSlots = new SlotStatus[noOfSlots];
-        Arrays.fill(newSlots, SlotStatus.EMPTY);
+        final Slot[] newSlots = new Slot[noOfSlots];
+        Arrays.fill(newSlots, new Slot(SlotStatus.EMPTY));
         this.availableSlots.addAll(Arrays.asList(newSlots));
-        occupiedSlots = new ArrayList<>();
     }
     
     public ParkingLotStatus park() {
         if (isFull()) {
             return ParkingLotStatus.FULL;
         }
-        this.availableSlots.remove(0);
-        this.occupiedSlots.add(SlotStatus.FILLED);
+        availableSlots.stream().filter(Slot::isAvailable).findFirst().ifPresent(Slot::occupy);
         return determineStatus();
     }
     
@@ -31,4 +32,9 @@ public class ParkingLot {
         }
         return ParkingLotStatus.AVAILABLE;
     }
+    
+    public ParkingLotRecord generateTheSummary() {
+        return new ParkingLotRecord(availableSlots,determineStatus());
+    }
+    
 }
