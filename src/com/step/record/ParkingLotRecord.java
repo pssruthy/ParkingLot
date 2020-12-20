@@ -1,15 +1,14 @@
 package com.step.record;
 
 import com.step.parking.ParkingLotStatus;
-import com.step.parking.Slot;
 
 import java.util.ArrayList;
 
 public class ParkingLotRecord {
-    private final ArrayList<Slot> slots;
+    private final ArrayList<SlotRecord> slots;
     private final ParkingLotStatus parkingLotStatus;
     
-    public ParkingLotRecord(ArrayList<Slot> slots, ParkingLotStatus parkingLotStatus) {
+    public ParkingLotRecord(ArrayList<SlotRecord> slots, ParkingLotStatus parkingLotStatus) {
         this.slots = slots;
         this.parkingLotStatus = parkingLotStatus;
     }

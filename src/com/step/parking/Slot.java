@@ -1,6 +1,8 @@
 package com.step.parking;
 
 
+import com.step.record.SlotRecord;
+
 public class Slot {
     private SlotStatus slotStatus;
     
@@ -16,18 +18,7 @@ public class Slot {
         return this.slotStatus.isEmpty();
     }
     
-    
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Slot)) return false;
-        Slot slot = (Slot) o;
-        return slotStatus == slot.slotStatus;
+    public SlotRecord generateSlotRecord() {
+        return new SlotRecord(slotStatus);
     }
-    
-//    @Override
-//    public int hashCode() {
-//        return slotStatus.hashCode();
-//    }
 }

@@ -1,29 +1,30 @@
 package com.step.parking;
 
 import com.step.record.ParkingLotRecord;
+import com.step.record.SlotRecord;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ParkingLot {
-    private final ArrayList<Slot> availableSlots = new ArrayList<>();
+    private final ArrayList<Slot> slots = new ArrayList<>();
     
     public ParkingLot(int noOfSlots) {
         final Slot[] newSlots = new Slot[noOfSlots];
         Arrays.fill(newSlots, new Slot(SlotStatus.EMPTY));
-        this.availableSlots.addAll(Arrays.asList(newSlots));
+        this.slots.addAll(Arrays.asList(newSlots));
     }
     
     public ParkingLotStatus park() {
         if (isFull()) {
             return ParkingLotStatus.FULL;
         }
-        availableSlots.stream().filter(Slot::isAvailable).findFirst().ifPresent(Slot::occupy);
+        slots.stream().filter(Slot::isAvailable).findFirst().ifPresent(Slot::occupy);
         return determineStatus();
     }
     
     public boolean isFull() {
-        return availableSlots.size() == 0;
+        return slots.size() == 0;
     }
     
     private ParkingLotStatus determineStatus() {
@@ -33,8 +34,12 @@ public class ParkingLot {
         return ParkingLotStatus.AVAILABLE;
     }
     
-    public ParkingLotRecord generateTheSummary() {
-        return new ParkingLotRecord(availableSlots,determineStatus());
+    public ParkingLotRecord generateRecord() {
+        final ArrayList<SlotRecord> slotRecords = new ArrayList<>();
+        for (Slot slot : slots) {
+            slotRecords.add(slot.generateSlotRecord());
+        }
+        return new ParkingLotRecord(slotRecords, determineStatus());
     }
     
 }
