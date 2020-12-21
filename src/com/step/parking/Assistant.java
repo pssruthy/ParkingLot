@@ -2,20 +2,17 @@ package com.step.parking;
 
 import com.step.record.ParkingLotRecord;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Assistant {
-    private final ArrayList<ParkingLot> parkingLots;
-    
-    public Assistant(ArrayList<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+
+    public HashMap<Integer, ParkingLotRecord> records;
+
+    public Assistant(HashMap<Integer, ParkingLotRecord> records) {
+        this.records = records;
     }
-    
-    public ArrayList<ParkingLotRecord> monitor() {
-        final ArrayList<ParkingLotRecord> parkingLotRecords = new ArrayList<>();
-        for (ParkingLot parkingLot : parkingLots) {
-             parkingLotRecords.add(parkingLot.generateRecord());
-        }
-        return parkingLotRecords;
+
+    public void updateDisplay(int parkingLotId, ParkingLotRecord parkingLotRecord) {
+        this.records.put(parkingLotId, parkingLotRecord);
     }
 }

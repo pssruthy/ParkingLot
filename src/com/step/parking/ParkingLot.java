@@ -8,8 +8,10 @@ import java.util.Arrays;
 
 public class ParkingLot {
     private final ArrayList<Slot> slots = new ArrayList<>();
-    
-    public ParkingLot(int noOfSlots) {
+    private final Assistant assistant;
+
+    public ParkingLot(int noOfSlots, Assistant assistant) {
+        this.assistant = assistant;
         final Slot[] newSlots = new Slot[noOfSlots];
         Arrays.fill(newSlots, new Slot(SlotStatus.EMPTY));
         this.slots.addAll(Arrays.asList(newSlots));
@@ -20,6 +22,7 @@ public class ParkingLot {
             return ParkingLotStatus.FULL;
         }
         slots.stream().filter(Slot::isAvailable).findFirst().ifPresent(Slot::occupy);
+        assistant.updateDisplay(this.hashCode() ,generateRecord());
         return determineStatus();
     }
     
