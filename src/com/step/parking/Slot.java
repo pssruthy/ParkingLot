@@ -15,4 +15,11 @@ public class Slot {
     public boolean isAvailable() {
         return this.slotStatus.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        return "Slot{" +
+                "slotStatus=" + slotStatus +
+                '}';
+    }
 }

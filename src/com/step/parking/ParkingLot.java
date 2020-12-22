@@ -1,7 +1,6 @@
 package com.step.parking;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 
 public class ParkingLot {
@@ -12,19 +11,18 @@ public class ParkingLot {
     public ParkingLot(int id, int noOfSlots, ArrayList<ParkingLotListener> listeners) {
         this.id = id;
         this.listeners = listeners;
-        final Slot[] newSlots = new Slot[noOfSlots];
-        Arrays.fill(newSlots, new Slot(SlotStatus.EMPTY));
-        this.slots.addAll(Arrays.asList(newSlots));
+        for (int i = 0; i < noOfSlots; i++) {
+            this.slots.add(new Slot(SlotStatus.EMPTY));
+        }
     }
-    
+
     public ParkingLotStatus park() {
         if (isFull()) {
             this.informListeners();
             return ParkingLotStatus.FULL;
         }
-        Optional<Slot> availableSlot = slots.stream().filter(Slot::isAvailable).findFirst();
-        availableSlot.ifPresent(Slot::occupy);
-
+        Optional<Slot> slot = slots.stream().filter(Slot::isAvailable).findFirst();
+        slot.ifPresent(Slot::occupy);
         return determineStatus();
     }
 
@@ -33,9 +31,9 @@ public class ParkingLot {
     }
 
     public boolean isFull() {
-        return slots.size() == 0;
+        return this.slots.stream().noneMatch(Slot::isAvailable);
     }
-    
+
     private ParkingLotStatus determineStatus() {
         if (isFull()) {
             this.informListeners();
