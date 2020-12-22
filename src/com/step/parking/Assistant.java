@@ -1,18 +1,16 @@
 package com.step.parking;
 
-import com.step.record.ParkingLotRecord;
-
 import java.util.HashMap;
 
 public class Assistant {
 
-    public HashMap<Integer, ParkingLotRecord> records;
+    public HashMap<Integer, ParkingLotStatus> records;
 
-    public Assistant(HashMap<Integer, ParkingLotRecord> records) {
+    public Assistant(HashMap<Integer, ParkingLotStatus> records) {
         this.records = records;
     }
 
-    public void updateDisplay(int parkingLotId, ParkingLotRecord parkingLotRecord) {
+    public void updateDisplay(int parkingLotId, ParkingLotStatus parkingLotRecord) {
         this.records.put(parkingLotId, parkingLotRecord);
     }
 }

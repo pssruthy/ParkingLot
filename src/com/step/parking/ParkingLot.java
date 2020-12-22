@@ -1,10 +1,8 @@
 package com.step.parking;
 
-import com.step.record.ParkingLotRecord;
-import com.step.record.SlotRecord;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class ParkingLot {
     private final ArrayList<Slot> slots = new ArrayList<>();
@@ -21,8 +19,9 @@ public class ParkingLot {
         if (isFull()) {
             return ParkingLotStatus.FULL;
         }
-        slots.stream().filter(Slot::isAvailable).findFirst().ifPresent(Slot::occupy);
-        assistant.updateDisplay(this.hashCode() ,generateRecord());
+        Optional<Slot> availableSlot = slots.stream().filter(Slot::isAvailable).findFirst();
+        availableSlot.ifPresent(Slot::occupy);
+        assistant.updateDisplay(this.hashCode() ,determineStatus());
         return determineStatus();
     }
     
@@ -36,13 +35,4 @@ public class ParkingLot {
         }
         return ParkingLotStatus.AVAILABLE;
     }
-    
-    public ParkingLotRecord generateRecord() {
-        final ArrayList<SlotRecord> slotRecords = new ArrayList<>();
-        for (Slot slot : slots) {
-            slotRecords.add(slot.generateSlotRecord());
-        }
-        return new ParkingLotRecord(slotRecords, determineStatus());
-    }
-    
 }

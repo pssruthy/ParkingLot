@@ -1,8 +1,6 @@
 package com.step.parking;
 
 
-import com.step.record.SlotRecord;
-
 public class Slot {
     private SlotStatus slotStatus;
     

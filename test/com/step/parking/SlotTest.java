@@ -1,6 +1,5 @@
 package com.step.parking;
 
-import com.step.record.SlotRecord;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
