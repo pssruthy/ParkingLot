@@ -19,11 +19,4 @@ public class SlotTest {
         assertFalse(slot.isAvailable());
     }
 
-    @Test
-    public void shouldGenerateSlotRecord() {
-        Slot slot = new Slot(SlotStatus.EMPTY);
-        SlotRecord expected = slot.generateSlotRecord();
-
-        assertEquals(expected, new SlotRecord(SlotStatus.EMPTY));
-    }
 }

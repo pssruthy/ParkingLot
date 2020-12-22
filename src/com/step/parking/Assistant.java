@@ -2,7 +2,7 @@ package com.step.parking;
 
 import java.util.HashMap;
 
-public class Assistant {
+public class Assistant implements ParkingLotListener {
 
     public HashMap<Integer, ParkingLotStatus> records;
 
@@ -10,7 +10,8 @@ public class Assistant {
         this.records = records;
     }
 
-    public void updateDisplay(int parkingLotId, ParkingLotStatus parkingLotRecord) {
-        this.records.put(parkingLotId, parkingLotRecord);
+    @Override
+    public void listen(int parkingLotId) {
+        this.records.put(parkingLotId, ParkingLotStatus.FULL);
     }
 }

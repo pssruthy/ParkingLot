@@ -10,7 +10,7 @@ public class ParkingLotTest {
     @Test
     public void shouldParkACar() {
         HashMap<Integer, ParkingLotStatus> records = new HashMap<>();
-        ParkingLot parkingLot = new ParkingLot(2, new Assistant(records) );
+        ParkingLot parkingLot = new ParkingLot(1, new Assistant(records), 2);
         assertEquals(ParkingLotStatus.AVAILABLE, parkingLot.park());
     }
 }

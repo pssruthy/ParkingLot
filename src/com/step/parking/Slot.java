@@ -15,8 +15,4 @@ public class Slot {
     public boolean isAvailable() {
         return this.slotStatus.isEmpty();
     }
-    
-    public SlotRecord generateSlotRecord() {
-        return new SlotRecord(slotStatus);
-    }
 }

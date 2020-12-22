@@ -6,10 +6,12 @@ import java.util.Optional;
 
 public class ParkingLot {
     private final ArrayList<Slot> slots = new ArrayList<>();
-    private final Assistant assistant;
+    private final int id;
+    private final ParkingLotListener listener;
 
-    public ParkingLot(int noOfSlots, Assistant assistant) {
-        this.assistant = assistant;
+    public ParkingLot(int id, ParkingLotListener listener, int noOfSlots) {
+        this.id = id;
+        this.listener = listener;
         final Slot[] newSlots = new Slot[noOfSlots];
         Arrays.fill(newSlots, new Slot(SlotStatus.EMPTY));
         this.slots.addAll(Arrays.asList(newSlots));
@@ -21,7 +23,7 @@ public class ParkingLot {
         }
         Optional<Slot> availableSlot = slots.stream().filter(Slot::isAvailable).findFirst();
         availableSlot.ifPresent(Slot::occupy);
-        assistant.updateDisplay(this.hashCode() ,determineStatus());
+
         return determineStatus();
     }
     
@@ -31,6 +33,7 @@ public class ParkingLot {
     
     private ParkingLotStatus determineStatus() {
         if (isFull()) {
+            this.listener.listen(this.id);
             return ParkingLotStatus.FULL;
         }
         return ParkingLotStatus.AVAILABLE;
