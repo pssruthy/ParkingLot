@@ -17,7 +17,7 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1, 1, listeners);
         
         assertEquals(ParkingLotStatus.FULL, parkingLot.park());
-        verify(assistant, times(1)).listen(1);
+        verify(assistant, times(1)).update(1);
     }
     
     @Test
@@ -35,8 +35,8 @@ public class ParkingLotTest {
         final ParkingLotStatus lotStatus = parkingLot.park();
         
         assertEquals(ParkingLotStatus.AVAILABLE, lotStatus);
-        verify(manager, times(1)).listen(1);
-        verify(assistant, times(0)).listen(1);
+        verify(manager, times(1)).update(1);
+        verify(assistant, times(0)).update(1);
         
     }
 }

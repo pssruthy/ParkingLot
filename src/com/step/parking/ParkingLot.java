@@ -26,7 +26,7 @@ public class ParkingLot {
     private void informListeners() {
         this.dispatchFilters.forEach(dispatchFilter -> {
             final float occupiedSlotPercentages = computeOccupiedSlotPercentages();
-            dispatchFilter.listen(this.id, occupiedSlotPercentages);
+            dispatchFilter.update(this.id, occupiedSlotPercentages);
         });
     }
     

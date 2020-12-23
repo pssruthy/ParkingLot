@@ -10,9 +10,9 @@ public class ParkingLotNotificationDispatcher implements NotificationDispatcher 
     }
     
     @Override
-    public void listen(int parkingLotId, float eventData) {
+    public void update(int parkingLotId, float eventData) {
         if(eventData >= threshold){
-            parkingLotListener.listen(parkingLotId);
+            parkingLotListener.update(parkingLotId);
         }
     }
 }
