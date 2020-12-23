@@ -1,5 +1,5 @@
 package com.step.parking;
 
-public interface ParkingLotDispatchFilter {
+public interface NotificationDispatcher {
     public void listen(int parkingLotId, float eventData);
 }

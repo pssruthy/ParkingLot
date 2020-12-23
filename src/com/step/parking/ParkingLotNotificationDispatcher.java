@@ -1,10 +1,10 @@
 package com.step.parking;
 
-public class ListenerDispatch implements ParkingLotDispatchFilter {
+public class ParkingLotNotificationDispatcher implements NotificationDispatcher {
     private final ParkingLotListener parkingLotListener;
     private final int threshold;
     
-    public ListenerDispatch(ParkingLotListener listener, int threshold) {
+    public ParkingLotNotificationDispatcher(ParkingLotListener listener, int threshold) {
         this.parkingLotListener = listener;
         this.threshold = threshold;
     }

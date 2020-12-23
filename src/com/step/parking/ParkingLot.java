@@ -6,9 +6,9 @@ import java.util.Optional;
 public class ParkingLot {
     private final ArrayList<Slot> slots = new ArrayList<>();
     private final int id;
-    private final ArrayList<ListenerDispatch> dispatchFilters;
+    private final ArrayList<ParkingLotNotificationDispatcher> dispatchFilters;
 
-    public ParkingLot(int id, int noOfSlots, ArrayList<ListenerDispatch> dispatchFilters) {
+    public ParkingLot(int id, int noOfSlots, ArrayList<ParkingLotNotificationDispatcher> dispatchFilters) {
         this.id = id;
         this.dispatchFilters = dispatchFilters;
         for (int i = 0; i < noOfSlots; i++) {
