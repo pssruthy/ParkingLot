@@ -11,32 +11,47 @@ public class ParkingLotTest {
     
     @Test
     public void shouldParkTheCarAndNotifyTheAssistant() {
-        ArrayList<ParkingLotNotificationDispatcher> listeners = new ArrayList<>();
+        ArrayList<ParkingLotListener> listeners = new ArrayList<>();
         ParkingLotListener assistant = mock(ParkingLotListener.class);
-        listeners.add(new ParkingLotNotificationDispatcher(assistant, 100));
+        listeners.add(assistant);
         ParkingLot parkingLot = new ParkingLot(1, 1, listeners);
         
         assertEquals(ParkingLotStatus.FULL, parkingLot.park());
-        verify(assistant, times(1)).update(1);
+        verify(assistant, times(1)).informFull(1);
     }
     
     @Test
+    public void shouldParkTheCarAndNotifyTheAssistantWhenLotIsAlmostEmpty() {
+        ArrayList<ParkingLotListener> listeners = new ArrayList<>();
+        ParkingLotListener attendant = mock(ParkingLotListener.class);
+        listeners.add(attendant);
+        ParkingLot parkingLot = new ParkingLot(1, 5, listeners);
+        
+        assertEquals(ParkingLotStatus.AVAILABLE, parkingLot.park());
+        verify(attendant, times(1)).informAlmostEmpty(1);
+    }
+    
+    
+    @Test
     public void shouldParkTheCarAndNotifyTheListenerWhenSlotsAre80PercentageFull() {
-        ArrayList<ParkingLotNotificationDispatcher> dispatchFilter = new ArrayList<>();
+        ArrayList<ParkingLotListener> listeners = new ArrayList<>();
         ParkingLotListener assistant = mock(ParkingLotListener.class);
         ParkingLotListener manager = mock(ParkingLotListener.class);
-        
-        dispatchFilter.add(new ParkingLotNotificationDispatcher(manager, 80));
-        dispatchFilter.add(new ParkingLotNotificationDispatcher(assistant, 100));
-        ParkingLot parkingLot = new ParkingLot(1, 5, dispatchFilter);
+        listeners.add(assistant);
+        listeners.add(manager);
+        ParkingLot parkingLot = new ParkingLot(1, 5, listeners);
         parkingLot.park();
         parkingLot.park();
         parkingLot.park();
         final ParkingLotStatus lotStatus = parkingLot.park();
         
         assertEquals(ParkingLotStatus.AVAILABLE, lotStatus);
-        verify(manager, times(1)).update(1);
-        verify(assistant, times(0)).update(1);
+        verify(manager, times(1)).informAlmostFull(1);
+        verify(manager, times(0)).informFull(1);
+        
+        verify(assistant, times(1)).informAlmostFull(1);
+        verify(assistant, times(0)).informFull(1);
+        
         
     }
 }
